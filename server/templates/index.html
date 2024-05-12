@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"
+    integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/dropzone/dist/dropzone.css" rel="stylesheet">
+  <title>Video Compressor</title>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Video Compressor</h1>
+    <h2>& Video Compressive Sensing Simulation Tool</h2>
+    <div>
+      <label for="compression-ratio">Compression Ratio:</label>
+      <select id="compression-ratio">
+        <option value="8">10:1</option>
+        <option value="20">25:1</option>
+        <option value="50">50:1</option>
+      </select>
+    </div>
+    <div>
+      <label for="mode-switch">Mode:</label>
+      <select id="mode-switch" onchange="toggleMode()">
+        <option value="compression">Compression</option>
+        <option value="decompression">Decompression</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="introduce">
+      <p>Video compressive sensing hardware captures multiple sequential video frames by a single measurement.
+        The underlying principle is to modulate high-speed frames through different masks (using DMD) and these
+        modulated frames are summed to a single measurement captured by a low-speed 2D sensor (low-speed camera)</p>
+      <p style="margin-top: 20px;">This tool can simulate the process of video compressive sensing😉</p>
+      <p><span style="text-decoration: underline; color: #f44336;">Attention:</span> "for gray scale videos now"! 😜</p>
+    </div>
+
+    <div class="drag-field" id="compression-zone" enctype="multipart/form-data">
+      <div class="input">
+        <form action="/file-upload" class="dropzone" id="dropzone">
+          <div class="dz-message needsclick">
+            <img class="drop-file__img" src="../static/images/file.png" alt="">
+            <p class="drop-file__text">Please select your video</p>
+          </div>
+        </form>
+        <button class="btn submit">Let's go!</button>
+      </div>
+    </div>
+
+    <div class="drag-field" id="decompression-zone-mask" style="display: none;">
+      <div class="input">
+        <form action="/file-upload" class="dropzone" id="dropzone">
+          <div class="dz-message needsclick">
+            <img class="drop-file__img" src="../static/images/mask.png" alt="">
+            <p class="drop-file__text">Please select your mask</p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="drag-field" id="decompression-zone" style="display: none;">
+      <div class="input">
+        <form action="/file-upload" class="dropzone" id="dropzone">
+          <div class="dz-message needsclick">
+            <img class="drop-file__img" src="../static/images/compressed.png" alt="">
+            <p class="drop-file__text">Please select your compressed video</p>
+          </div>
+        </form>
+        <button class="btn submit" id="decompression-zone-submit">Let's go!</button>
+      </div>
+    </div>
+
+    <div id="download-button" style="display: none;">
+      <button>Download File</button>
+    </div>
+
+    <div class="result-display" style="display: none;">
+      <div class="result">
+        <video class="processed-video" controls>
+          <source src="" type="video/mp4"> <!-- assuming video format is mp4 -->
+          Your browser does not support the video tag.
+        </video>
+        <a href="" download="compressedVideo.mp4" class="download btnd Compressed" style="text-decoration: none;">
+          Download Compressed Video
+        </a>
+        <a href="" download="mask.zip" class="download btnd Mask" style="text-decoration: none;">
+          Download Mask Zip
+        </a>
+      </div>
+    </div>
+
+    <div class="result-display-decompression" style="display: none;">
+      <div class="result">
+        <video class="reconstructed-video" controls>
+          <source src="" type="video/mp4"> <!-- assuming video format is mp4 -->
+          Your browser does not support the video tag.
+        </video>
+        <a href="" download="reconstructedVideo.mp4" class="download btnd Reconstructed" style="text-decoration: none;">
+          Download Reconstructed Video
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"
+    integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../static/js/main.js"></script>
+
+</html>

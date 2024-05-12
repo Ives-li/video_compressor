@@ -370,15 +370,15 @@ examples_merge_from_raw_files_with_post_demosaicing.ipynb>`__.
 def save_single_image(images,image_dir,batch,name="",demosaic=False):
     images = images*255
     if len(images.shape)==4:
-        frames = images.shape[1]
+        frames = images.shape[1] 
     else:
-        frames = images.shape[0]
+        frames = images.shape[0] #gray
     for i in range(frames):
         begin_frame = batch*frames
         if len(images.shape)==4:
             single_image = images[:,i].transpose(1,2,0)[:,:,::-1]
         else:
-            single_image = images[i]
+            single_image = images[i] #gray
         if demosaic:
             single_image = demosaicing_bayer(single_image,pattern='BGGR')
         cv2.imwrite(osp.join(image_dir,name+"_"+str(begin_frame+i+1)+".png"),single_image)
